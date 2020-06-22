@@ -1,0 +1,19 @@
+\section{Introduction}
+Audible sound for human hearing lies between 20 to 20kHz. To produces frequencies in this range, classical speakers perform well at achieving a natural response to match that of human hearing. However, classical speakers are not easily controllable as the sound waves fill the space which the loudspeaker occupies. This is due to the large wavelength of audible sound which limits the maximum directivity of a loudspeaker.\\
+Directivity for a sound source is related to the ratio of wavelength ($\lambda$) to the aperture diameter ($D_{apeture}$) of the source as shown in equation \ref{eqn:beamwidthEqn}.
+\begin{equation}
+    B_\theta \approx \frac{\lambda}{D_{aperture}}
+    \label{eqn:beamwidthEqn}
+\end{equation}
+For apertures much larger than the wavelengths it produces, a high directivity is achieved. Since audible sound has a wavelength between 17 meters to 1.7 centimeters, an infeasible aperture diameter would be required to achieve a high directivity.\\
+If instead of the transmitted waves are ultrasound, the wavelengths are reduced to between 5.7 to 8.5 millimeters allowing for a smaller aperture of a few centimeters to achieve a high directivity.\\
+
+Since these ultrasonic waves are inaudible, they need to be translated down in frequency to the human hearing range. This can be done by exploiting a property of air acting as a nonlinear medium when propagating ultrasonic waves. According to Berktay's far-field solution \cite{berktay_1965}, the secondary pressure wave is proportional to the second time derivative of the primary pressure wave squared. A simplified form of Berktay's far-field solution ignoring medium related constants is shown in equation \ref{eqn:berktayRelationship} where $p_1 (t)$ and $p_2 (t)$ represent the primary (input) and secondary (output) sound pressure waves respectively when an ultrasonic wave is propagated in a medium.
+\begin{equation}
+    p_2(t) \propto \frac{\partial^2}{\partial t^2}p_1^2(t)
+    \label{eqn:berktayRelationship}
+\end{equation}
+The nonlinearity caused by the squaring shown in equation \ref{eqn:berktayRelationship} creates sum and difference frequencies when sine waves are applied. since the sine waves are in the ultrasonic range, the sum would produce higher ultrasonic frequencies while the difference can produce lower audible frequencies if appropriate frequencies are selected.\\
+This translation from ultrasonic to audible frequencies causes the ultrasonic beam itself to become a loudspeaker which extends the aperture diameter beyond the physical bounds of the radiating transducers, thus improving directivity of the audible sound.\\
+
+This research and design project aims to produce a simple, low-cost prototype of the above mentioned directional audio system to demonstrate the directional audio effect which can be further refined in future revisions.
