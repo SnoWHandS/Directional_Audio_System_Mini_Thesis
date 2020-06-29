@@ -392,6 +392,72 @@ The beam shapes were simulated for the hexagonally packed design and are present
 
 It can be seen that more side lobes appear when using the hexagonal design, however it does better approximate a single transducer's beam shape with the relatively small lobes surrounding the large main lobe.
 Both the square and hexagonal beam results indicate a similar peak relative magnitude of the main lobe of 4500, however; when analysing their bore-sight views the hexagonally packed array has six side lobes at approximate relative magnitude of 1000 while the square packed array has four side lobes with a relative magnitude of 1500. Neither result is fundamentally better than the other, but creating a beam with less side lobes would result in a more directive audio experience. Thus, since both results achieve a strong main lobe, the square packed solution is chosen going forward with the design as few side lobes is a more desirable trait for the directional audio system.
+\newpage
 
 \subsubsection{Array PCB design}
+Prior to the array design simulations done in the previous section, some alternative array designs are considered in the interest of creating a modular PCB design. The rationale behind taking a modular approach is reduce the risk of failure due to faulty transducers. With a monolithic design, failure of a few transducers could risk damaging surrounding transducers while adding difficultly in troubleshooting where the failed components are. The transducers chosen for this design are the Kibitone 400ST ultrasonic transducers. A custom footprint for this transducer was created using the dimensions in its datasheet and used for the PCB design in KiCAD.
 
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figures/Design/PCB/closeups/octogonalrev1.png}
+    \caption{Rev 1.0 illustrating a modular octagonal design}
+    \label{fig:modHex1.0}
+\end{figure}
+
+Figure \ref{fig:modHex1.0} demonstrates the first attempt at making a modular transducer array element. The idea behind this being that many hexagons can stack closely together providing minimal gaps between each PCB module. Rev 1.0 was used to estimate how best to layout the transducer and in what shape. This resulted in a octagonal design which only allowed 2 PCBs to interconnect as additional pin headers would be needed for a third module to link with the other two.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figures/Design/PCB/closeups/hexrev1.1.png}
+    \caption{Rev 1.1 illustrating a modular hexagonal design with extra pin headers}
+    \label{fig:modHex1.1}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figures/Design/PCB/closeups/3xhex1.1.png}
+    \caption{Three Rev 1.1 modular hexagonal PCBs interconnecting}
+    \label{fig:3modHex1.1}
+\end{figure}
+
+
+Revision 1.1 is shown in figure \ref{fig:modHex1.1} where additional pin headers were added to allow up to three hexagonal PCB modules to connect to each other as demonstrated by figure \ref{fig:3modHex1.1}. Upon further development it was discovered that the male and female header pin placement was critical as exact alignment of them would be crucial for the modules to interconnect correctly with minimal gap. Adding to that, the centre of the array does not contain any transducers which would severely effect the uniformity of the beam. These factors drove the choice to redesign the array using a monolithic approach instead of modular and manage the risk faulty components by additional component level testing during the implementation stage.
+
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Figures/Design/PCB/closeups/circCloserev1.2.png}
+    \caption{Rev 1.2 monolithic design derived from packing simulations}
+    \label{fig:CircMonoPCB}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+
+    \begin{minipage}{0.49\textwidth}
+    \centering
+    \includegraphics[width= \textwidth]{Figures/Design/PCB/Circular_Usonic_PCB_iso_3D.png}
+    \caption{Isometric 3D view of Rev 1.2 Circular PCB design with square packing}
+    \label{fig:isoPCB3D}
+    \end{minipage}\hfill
+    \begin{minipage}{0.49\textwidth}
+    \centering
+    \includegraphics[width= \textwidth]{Figures/Design/PCB/Circular_Usonic_PCB_bot.png}
+    \caption{bottom 3D view of Rev 1.2 Circular PCB design with square packing}
+    \label{fig:botPCB3D}
+    \end{minipage}
+    
+\end{figure}
+\newpage
+Learning from the packing and beam shape simulations done in the previous sections, a circular PCB with square packing was chosen for the PCB implementation. Figure \ref{fig:CircMonoPCB} illustrates the PCB design in KiCAD's PCB view while figures \ref{fig:isoPCB3D} and \ref{fig:botPCB3D} show the 3D view of the circular PCB featuring a radius of 4.5cm. Note the 3D views use plastic piezoelectric buzzers as their 3D model, this is due to the adaption and reuse of an existing buzzer when creating the custom PCB footprint for the Kibitone 400ST ultrasonic transducer. This PCB features four mounting holes for M4 screws simplifying the arrays ability to attach to a testing setup. Additionally two sets of pin headers are provided allowing the signal to be fed in while being measured on the other set of pin headers. 
+
+\begin{comment}
+
+Finally, the design choice was made to attach the first pin of each transducer to the front copper polygon pour while the second pin is attached to the back copper polygon pour. This allows the PCB to be as simple as possible and reduces the risk of failure due to a faulty trace. It does however potentially add some capacitance to the input on the PCB since the PCB now consists of two oppositely charged parallel plates. This value will be small in comparison to the front end capacitance of the amplifier which is in the order of 1000 $\muF$.
+The approximate capacitance the PCB would create can be calculated using equation \ref{eqn:capEqn} where $\varepsilon_r$ is the relative permittivity of the PCB substrate and is usually around 4.5 and $d_layer$ is the distance between the layers which is approximately 2mm. This results in an approximate capacitance of 126.74pF for the circular PCB with a radius of 4.5cm which should have little effect.
+%it actually has a big effect but shhhhh, I only just realised this causes the 1000uF cap to effectively add in parallel with this capacitance, reducing it down to 126pF which has a Xc of 33.046k, thus potentially increasing the impedance of the load beyond what the amplifier is designed for
+
+\begin{equation}\label{eqn:capEqn}
+    C = \varepsilon_0 \varepsilon_r \frac{\pi R^2}{d_layer}
+\end{equation}
+\end{comment}
