@@ -2,7 +2,7 @@
 The testing and verification of the directional audio system will be done by comparing its acoustic performance with a traditional loudspeaker. Particular test points of interest include the directionality of the speaker and the audible harmonic distortion for pure tone cases.
 \subsection{Test setup and apparatus}
 The test setup for recording results from both the traditional and ultrasonic directional speaker involves the items shown in table \ref{tab:apparatus}.
-\begin{table}[ht!]
+\begin{table}[H]
     \centering
     \begin{tabular}{|l|p{12cm}|}
     \hline
@@ -35,6 +35,8 @@ To test distortion, the ultrasonic array is directed  $0^\circ$ relative to the 
 The ultrasonic array is then removed from the tripod and replaced with a traditional speaker. With the speaker facing the same direction as before and using julia on the laptop, a 2.5 kHz sine wave is generated and played by the speaker without any modulation or processing done on the waveform.
 Each recording is captured for 15 seconds and edited to only include the period where the signal is audible and no other sources of noise are visible in the waveform.\\
 These recordings are then imported into julia and analysed. For each recording, the FFT of the recording is produced to analyse the fundamental frequency magnitude relative to its harmonics. This provides a measure to determine how distorted the output of the speaker is by comparing how close the magnitude of the harmonics is to the fundamental frequency.
+
+\newpage
 
 \subsection{Directionality testing method}
 To test directionality, the ultrasonic array is initially directed to $-90^\circ$ relative to the microphone and the pre-processed 2.5kHz sine wave is generated using julia, modulated with the mixer and emitted from the array. A operator then positions themselves behind the tripod and slowly pans the speaker from $-90^\circ$ through $0^\circ$ and finally ending at $+90^\circ$. The recording is then stopped and edited to only include the period over which the array is swept to reduce operator noise affecting the results.\\

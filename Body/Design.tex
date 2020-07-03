@@ -11,7 +11,7 @@ The high level system design of the directional audio system is shown in figure 
 The system begins by pre-processing audio using a specially developed julia program which applies the appropriate mathematical functions to a baseband audio clip and outputs the signal through the laptops audio jack.\\
 This pre-processed signal is then mixed with a 40 kHz sine wave created by a signal generator and passed into an amplifier. The amplifier increases the voltage swing of the mixed signal while having sufficient current to drive the ultrasonic transducers.\\
 The ultrasonic transducers are connected in parallel with each other and thus all receive the same signal from the power amplifier. The transducers are packed into a densely packed array to provide a more uniform transducer aperture which emits the input signal into the environment.
-
+%don't put a page break here, it ruins mixer spacing
 \subsection{Pre-processing subsystem design}
 The pre-processing occurs in the form of a julia program which applies the mathematical functions shown in figure \ref{fig:sigpreprocessflow}. The program takes in a sampled signal $x_{in}(t)$ which is then shifted to the centre crossing by subtraction of its average value. The function then undertakes a sample wise double integral and is then raised above the centre crossing so only positive values remain. The square root of the function is then taken and the signal is then output through the audio port of the laptop.
 \begin{figure}[ht!]
@@ -390,6 +390,7 @@ The beam shapes were simulated for the hexagonally packed design and are present
     \label{fig:hex_elem_3Dbeam}
 \end{figure}
 
+\newpage
 It can be seen that more side lobes appear when using the hexagonal design, however it does better approximate a single transducer's beam shape with the relatively small lobes surrounding the large main lobe.
 Both the square and hexagonal beam results indicate a similar peak relative magnitude of the main lobe of 4500, however; when analysing their bore-sight views the hexagonally packed array has six side lobes at approximate relative magnitude of 1000 while the square packed array has four side lobes with a relative magnitude of 1500. Neither result is fundamentally better than the other, but creating a beam with less side lobes would result in a more directive audio experience. Thus, since both results achieve a strong main lobe, the square packed solution is chosen going forward with the design as few side lobes is a more desirable trait for the directional audio system.
 \newpage
@@ -420,7 +421,7 @@ Figure \ref{fig:modHex1.0} demonstrates the first attempt at making a modular tr
     \label{fig:3modHex1.1}
 \end{figure}
 
-
+\newpage
 Revision 1.1 is shown in figure \ref{fig:modHex1.1} where additional pin headers were added to allow up to three hexagonal PCB modules to connect to each other as demonstrated by figure \ref{fig:3modHex1.1}. Upon further development it was discovered that the male and female header pin placement was critical as exact alignment of them would be crucial for the modules to interconnect correctly with minimal gap. Adding to that, the centre of the array does not contain any transducers which would severely effect the uniformity of the beam. These factors drove the choice to redesign the array using a monolithic approach instead of modular and manage the risk faulty components create by additional component level testing during the implementation stage.
 
 
