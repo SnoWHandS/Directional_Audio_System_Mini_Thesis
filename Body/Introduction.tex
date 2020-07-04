@@ -1,25 +1,25 @@
 \section{Introduction}
 \subsection{Background}
-Audible sound for human hearing lies between 20 to 20kHz. To produces frequencies in this range, classical speakers perform well at achieving a natural response to match that of human hearing. However, classical speakers are not easily controllable as the sound waves fill the space which the loudspeaker occupies. This is due to the large wavelength of audible sound which limits the maximum directivity of a loudspeaker.\\
-Directivity for a sound source is related to the ratio of wavelength ($\lambda$) to the aperture diameter ($D_{apeture}$) of the source as shown in equation \ref{eqn:beamwidthEqn}.
+Audible sound for human hearing lies between 20 to 20kHz. To produce frequencies in this range, classical speakers perform well at achieving a natural response to match that of human hearing. However, classical speakers cannot easily control where the sound waves go and instead fill the space that the loudspeaker occupies uniformly. This is due to the large wavelength of audible sound which limits the maximum directivity of a loudspeaker.\\
+Directivity for a sound source is related to the ratio of wavelength ($\lambda$) to the aperture diameter ($D_{aperture}$) of the source as shown in equation \ref{eqn:beamwidthEqn}.
 \begin{equation}
     B_\theta \approx \frac{\lambda}{D_{aperture}}
     \label{eqn:beamwidthEqn}
 \end{equation}
-For apertures much larger than the wavelengths it produces, a high directivity is achieved. Since audible sound has a wavelength between 17 meters to 1.7 centimeters, an infeasible aperture diameter would be required to achieve a high directivity.\\
-If instead the transmitted waves are ultrasound, the wavelengths are reduced to between 5.7 to 8.5 millimeters allowing for a smaller aperture of a few centimeters to achieve a high directivity.
+For apertures much larger than the wavelengths it produces, a high directivity is achieved. Since audible sound has a wavelength between 17 meters to 1.7 centimetres, an infeasible aperture diameter would be required to achieve a high directivity.\\
+If instead the transmitted waves are ultrasound, the wavelengths are reduced to between 5.7 to 8.5 millimetres allowing for a smaller aperture of a few centimetres to achieve a high directivity.
 \subsection{Problem statement}
 Since these ultrasonic waves are inaudible, they need to be translated down in frequency to the human hearing range. This can be done by exploiting a property of air acting as a nonlinear medium when propagating ultrasonic waves. According to Berktay's far-field solution \cite{berktay_1965}, the secondary pressure wave is proportional to the second time derivative of the primary pressure wave squared. A simplified form of Berktay's far-field solution ignoring medium related constants is shown in equation \ref{eqn:berktayRelationship} where $p_1 (t)$ and $p_2 (t)$ represent the primary (input) and secondary (output) sound pressure waves respectively when an ultrasonic wave is propagated in a medium.
 \begin{equation}
     p_2(t) \propto \frac{\partial^2}{\partial t^2}p_1^2(t)
     \label{eqn:berktayRelationship}
 \end{equation}
-The nonlinearity caused by the squaring shown in equation \ref{eqn:berktayRelationship} creates sum and difference frequencies when sine waves are applied. since the sine waves are in the ultrasonic range, the sum would produce higher ultrasonic frequencies while the difference can produce lower audible frequencies if appropriate frequencies are selected.\\
+The non-linearity caused by the squaring shown in equation \ref{eqn:berktayRelationship} creates sum and difference frequencies when sine waves are applied. Since the sine waves are in the ultrasonic range, the sum would produce higher ultrasonic frequencies while the difference can produce lower audible frequencies if appropriate frequencies are selected.\\
 This translation from ultrasonic to audible frequencies causes the ultrasonic beam itself to become a loudspeaker which extends the aperture diameter beyond the physical bounds of the radiating transducers, thus improving directivity of the audible sound.
 \subsection{Project objectives}
 This research and design project aims to produce a simple, low-cost prototype of the above mentioned directional audio system to demonstrate the directional audio effect which can be further refined in future revisions.
 
-The deliverables involved in the development of the directional audio system are broken up into developmental milestones which feed into one another which are discussed in the following subsections.
+The deliverables involved in the development of the directional audio system are broken up into developmental milestones which feed into one another and are discussed in the following subsections.
 \subsubsection{Theory \& simulation}
 The theory deliverable involves understanding the various models related to the development of the directional audio system. This includes understanding the principles behind self-demodulating ultrasonic waves and how to implement these principles.\\
 The principles understood in theory must then be tested by simulation where the full signal path is simulated from generation/recording, pre-processing of the signals and finally to recreation of the medium within which the ultrasonic waves are produced. The simulations will deliver a flexible environment to test pre-processing ideas and modulation schemes within some simulation limits. Additionally, the simulations aid in providing a flexible development environment to implement pre-processing of signals for the physical implementation while maintaining a low cost.
@@ -33,7 +33,7 @@ The implementation of the selected designs for each subsystem involves construct
 The testing and verification of the directional audio system will be done by comparing its acoustic performance with a traditional loudspeaker. Particular test points of interest include the directionality of the speaker and the audible harmonic distortion for the pure tone case.
 
 \subsection{Scope and limitations}
-The constraints of the directional audio system involve both complexity limitations based on the allocated time frame of the project and developmental limitations due factors external to projects control.\\
+The constraints of the directional audio system involve both complexity limitations based on the allocated time frame of the project and developmental limitations due to circumstances external to the projects control.\\
 %Complexity - time limit, cost limits
 The complexity scope limitation constrains the analytical depth the project may go into in favour of having a functional deliverable by the end of the project. The allotted time for the project spans an academic semester where the final deliverable is this document reporting on the simulation, design, implementation and testing of the directional audio system. Additionally a poster summarising the document is required.
 These limitations also include a budget of less than ZAR 1500 which reduces the achievable scope of the project to a low-cost solution as wide bandwidth transducers and high performance DSPs are outside of this budget and cannot be loaned for its duration.
@@ -41,13 +41,13 @@ These limitations also include a budget of less than ZAR 1500 which reduces the 
 External factors from the project also limit the scope by changing the work environment during development. This project was undertaken in the first semester of 2020, midway through this semester the Covid-19 pandemic struck the world and resulted in a national lockdown; thus restricting access to lab resources at UCT. Fortunately some basic lab equipment remained accessible and could be used at home during the national lockdown.
 \newpage
 \subsection{Document outline}
-The report segments into seven sections which each feature one of the developmental milestones from the previously introduced project objectives as well as a brief literature review and conclusion. These sections are listed below along with a summarised introduction to what is discussed in each section.
+The report segments into seven sections (excluding the introduction) which each feature one of the developmental milestones from the previously introduced project objectives as well as a brief literature review and conclusion. These sections are listed below along with a summarised introduction to what is discussed in each section.
 \begin{itemize}
     \item Section 2 walks through the history of the phenomenon and how it has evolved through the years. Results and advancements in the technology related to the phenomenon are mentioned and cited.
     \item Section 3 describes the simulation of the related signals for the direction audio system while relating it to the theory it represents. Each stage in the signal chain is described in theory and simulated to ascertain how certain signal processing factors effect the time and frequency domain of the signal.  
     \item Section 4 elaborates on the designs for the directional audio system's subsystems and includes high level system designs, electrical designs and finally transducer array designs. Heavier emphasis is put into the transducer array design including element packing and beam shape simulations.
-    \item Section 5 depicts the physical implementation of each designed subsystem. Tests at subsystem level for each implemented design are carried out with relevant conclusions drawn on moving forward with the implemented design.
+    \item Section 5 depicts the physical implementation of each designed subsystem. Tests at subsystem level for each implemented design are carried out with relevant conclusions drawn for moving forward with the implemented design.
     \item Section 6 specifies the testing method used to test the distortion and directionality of a traditional loud speaker system compared to the directional audio system. The test setup is defined, test methods are described and result generation methods outlined.
     \item Section 7 presents the results gathered from the distortion and directionality testing described in section 6. The results are described and points of interest are mentioned.
-    \item Section 8 discusses the results from section 7, drawing conclusions relating to the distortion and directionality of the directional audio system. The project as a whole is then concluded, with particular retrospective points of interest mentioned.
+    \item Section 8 discusses the results from section 7, drawing conclusions relating to the distortion and directionality of the directional audio system. The project as a whole is then concluded, with particular retrospective points of interest mentioned. The section ends off with further improvements for the project being discussed
 \end{itemize}

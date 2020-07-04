@@ -42,7 +42,7 @@ Analogue devices has a SPICE description of this components which was imported i
 \end{figure}
 
 \subsubsection{Mixer simulations}
-To verify the design works as intended with the systems input signals, a 40 kHz carrier with a 10V amplitude is connected to the Y input while a 2.5 kHz test tone is connected through a decoupling capacitor to the X input. The output (W) is connected to a 150k resistor to simulate the expected load of the amplifier input. The expect functional result of this configuration is shown in equation \ref{eqn:mixSim}. Since X2 and Y2 are grounded (0V) they fall away and a double side band large carrier amplitude modulation function is the result.
+To verify the design works as intended with the systems input signals, a 40 kHz carrier with a 10V amplitude is connected to the Y input while a 2.5 kHz test tone is connected through a decoupling capacitor to the X input. The output (W) is connected to a 150k resistor to simulate the expected load of the amplifier input. The expected functional result of this configuration is shown in equation \ref{eqn:mixSim}. Since X2 and Y2 are grounded (0V) they fall away and a double side band large carrier amplitude modulation function is the result.
 \begin{equation}\label{eqn:mixSim}
     W = \frac{(V_{in})(V_{carrier})}{10} + V_{carrier}
 \end{equation}
@@ -97,7 +97,7 @@ The supporting circuitry for this amplifier was adapted from the phono amplifier
     \label{fig:lm380circ}
 \end{figure}
 
-Figure \ref{fig:lm380circ} shows the LM380 amplifier along with the recommended circuitry for stable operation. An assumption was made to represent the ultrasonic array as a 100 $\Omega$ resistor as from investigating the datasheet of a ultrasonic transducer, a single transducer was found too have a equivalent resistance of 1000$\Omega$ at 40 kHz. When connecting 10 of these transducers in parallel the resistance is estimated to reduce to 100 $\Omega$, hence the load in figure \ref{fig:lm380circ}. If the transducer count for the array were increased to 20, this load would half down to 50$\Omega$ and would consume approximately double the power.
+Figure \ref{fig:lm380circ} shows the LM380 amplifier along with the recommended circuitry for stable operation. An assumption was made to represent the ultrasonic array as a 100 $\Omega$ resistor as from investigating the datasheet of a ultrasonic transducer, a single transducer was found to have a equivalent resistance of 1000$\Omega$ at 40 kHz. When connecting 10 of these transducers in parallel the resistance is estimated to reduce to 100 $\Omega$, hence the load in figure \ref{fig:lm380circ}. If the transducer count for the array were increased to 20, this load would half down to 50$\Omega$ and would consume approximately double the power.
 
 \subsubsection{Amplifier simulations}
 To verify whether the circuit in figure \ref{fig:lm380circ} would achieve the desired gain and operate at the intended carrier frequency of 40 kHz, simulations were done to test the input to output voltage (gain) as well as the output current of the LM380.
@@ -136,7 +136,7 @@ The simulation reveals that there needs to be at least 6V more than the 14V peak
 \end{figure}
 
 The results of reducing the input voltage show that the LM380 amplifier can indeed operate at a lower voltage without clipping its output, however; this is due to a reduced peak-to-peak output voltage of $10V_{p-p}$. This results in a overall voltage gain of the amplifier of 50 which is larger than before, but it also reduces the peak-to-peak voltage at the output which is directly proportional to transducer movement and thus, results in a sound pressure level in the environment.\\
-Finally the output current was simulated by measuring the current passing through the simulated ultrasonic load. Figure \ref{fig:lm380Iout} demonstrates a peak-to-peak current of 140mA while producing a $14V_{p-p}$ voltage across the ultrasonic load. This results in a total power of 1.39W through the load when using RMS voltage and current in the calculation which is well within the 2.5W maximum power the LM380 is rated for. If the load were to reduce due to more transducer being added in parallel, the consumed power would increase. As long as the peak-to-peak current remains below 252mA, the amplifier is operating within the specification of its datasheet. This current translates to a load of approximately 55$\Omega$ which results in a parallel transducer configuration of 19 to 21 transducers.
+Finally the output current was simulated by measuring the current passing through the simulated ultrasonic load. Figure \ref{fig:lm380Iout} demonstrates a peak-to-peak current of 140mA while producing a $14V_{p-p}$ voltage across the ultrasonic load. This results in a total power of 1.39W through the load when using RMS voltage and current in the calculation which is well within the 2.5W maximum power the LM380 is rated for. If the load were to reduce due to more transducers being added in parallel, the consumed power would increase. As long as the peak-to-peak current remains below 252mA, the amplifier is operating within the specification of its datasheet. This current translates to a load of approximately 55$\Omega$ which results in a parallel transducer configuration of 19 to 21 transducers.
 
 \begin{figure}[ht!]
     \centering
@@ -295,10 +295,36 @@ In conclusion, two of these layouts show potential. For a container radius of 4.
 \end{comment}
 
 \newpage
+
+
 \subsubsection{Array design simulations}
-The purpose of creating the ultrasonic array is to maximise the directivity of the speaker system. To aid in choosing an appropriate array packing profile, some designs were simulated to illustrate the effect that transducer placement has on the radiated beam shape with the goal or reducing side lobes while maximising the main lobe.\\
+The purpose of creating the ultrasonic array is to maximise the directivity of the speaker system. To aid in choosing an appropriate array packing profile, some designs were simulated to illustrate the effect that transducer placement in an array has on the radiated beam shape with the goal or reducing the amount of side lobes as well as their relative magnitude to the main lobe while maximising the main lobe.\\
 The transducer patterns from figure \ref{fig:hex4.1} with hexagonal packing and figure \ref{fig:sqr4.5} with square packing were simulated and compared as their designs have symmetry which is required for a uniform beam pattern.\\
-To start, a single transducer is modeled and its approximate beam shape simulated with use of a two-dimensional Fourier Transform.
+
+These beam shape simulations were done by use of a two-dimensional Fourier Transform (2DFFT). The 2DFFT is performed over the parametric array aperture and forms an approximate radiated beam shape which can be used to determine how transducer placement effects the main and side lobe shapes. The beam shape simulations do not have real world axes dimensions as their intended purpose is purely for design investigation.
+\paragraph{FFT Beam pattern derivation:}
+The beam pattern of a radiating aperture can be constructed by use of a two-dimensional FFT over the radiating aperture. This is done by modelling the radiating aperture as a grid of radiating point sources where the main lobe is developed from the constructive interference and side lobes created from destructive interference of these point sources, thus creating an interference pattern. This results in the waves adding in phase along the boresight axis due to constructive interference, while phase delays at some angle off boresight cause destructive interference, creating side lobes. This angle is represented by the beam width equation shown in equation \ref{eqn:boresightApndx} where D is the aperture diameter and $\lambda$ is the wavelength of the waves being propagated. Note, this equation is only for small angles.
+\begin{equation}\label{eqn:boresightApndx}
+    \theta \approx \frac{\lambda}{D}
+\end{equation}
+Letting the signal received by the middle element be $\frac{Ae^{j\omega t}}{R}$ where R is the radial distance from the aperture and A is the field strength of the aperture and can be defined as $A(x)$ representing the field strength as a function of position away from the boresight axis. This results in the total signal received being delayed by the extra distance it must travel. This distance causes a delay defined by: $ \tau=\frac{xsin(\theta)}{c}$ derived from $\Delta = xsin(\theta)$ (since $v=\frac{\Delta x}{\Delta t}, \Delta t = \frac{\Delta x}{v}$).
+This results in the total signal received being described by equation \ref{eqn:recievedE}.
+\begin{equation}\label{eqn:recievedE}
+    E \propto \frac{1}{R} \left( \sum_n A_n e^{-j\omega \tau_n} \right)e^{-j\omega t}
+\end{equation}
+Computing this sum results in an integral equation shown in equation \ref{eqn:recievedEint}.
+\begin{equation}\label{eqn:recievedEint}
+    E(\theta) = \frac{1}{R}  \int_{x=-\infty}^\infty A(x) e^{j\omega(t-\frac{xsin(\theta)}{c})}dx
+\end{equation}
+Since $\frac{\omega}{c} = \frac{2\pi f}{c} = \frac{2\pi}{\lambda}$ one can rewrite the above equation as shown in equation \ref{eqn:recievedEintnew}
+\begin{equation}\label{eqn:recievedEintnew}
+    E(\theta) = \frac{1}{R}  \int_{x=-\infty}^\infty A(x) e^{-j(\frac{2\pi sin(\theta)}{\lambda})x}e^{j\omega t}dx
+\end{equation}
+This angle dependant integral is in the form of a Fourier transform, thus can be computed with an FFT. Working in two dimensions allows a 3D beam pattern to be produced by taking the FFT in both dimensions.
+The FFT however, works with the $\omega$ axis which must be translated to an angular axis represented by $\theta$. This can be done by the relation $\omega = \frac{2\pi sin(\theta)}{\lambda}$, when rearranged to find $\theta$ produces $\theta = sin^{-1}(\frac{\omega \lambda}{2\pi})$. Substituting the frequency variable produces $\theta = sin^{-1(}f\lambda)$. Appendix C demonstrates how this axis change is possible for a future implementation of this code, but does not implement it.\\
+
+
+To start, a single transducer is modelled and its approximate beam shape simulated to verify the functionality of the simulation output. The simulation output produces the expected beam pattern for a single uniform aperture in figures \ref{fig:single_elem_topBeam} and \ref{fig:single_elem_3Dbeam} and thus, is considered functional.
 
 \begin{figure}[h!]
 \centering
