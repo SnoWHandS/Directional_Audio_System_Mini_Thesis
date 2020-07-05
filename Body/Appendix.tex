@@ -5,7 +5,7 @@
 
 The following code records, processes and then plays the double integrated and square-rooted output. Additional code sources are available on the github repository for this project at \url{https://github.com/SnoWHandS/Directional_Audio_System}.
 
-\begin{lstlisting}[caption={Record, process and play julia code}\label{lst:juliarecProPly},language=julia, style=jlcodestyle]
+\begin{lstlisting}[caption={Record, process and play Julia code}\label{lst:juliarecProPly},language=julia, style=jlcodestyle]
 
 #Developed by Dillon Heald for use with a directional ultrasonic speaker array
 #Date: April 2020
@@ -184,10 +184,9 @@ The following project planning was performed following initial proposal of the p
 
 \section{Beam pattern simulation code}
 Note, the code used for beam pattern simulation does not translate the $\omega$ axis to a $\theta$ axis. However, this can be done by performing some of the following changes.\\
-Let $\Delta x$ be the sample spacing and N be the number of samples. Considering that our sampled DFT array has indices k=0,1,2.. where each is the the frequency index. In the FFT array, the sample spacing is $\Delta f=\frac{1}{N\Delta x}$
-Since $f=\Delta f$  the $\theta$ axis can be defined by $\theta = sin^{-1}(k\Delta f \lambda)$.
-Note however, this is only valid for $\left|f \lambda \right | < 1 $ or $\left |f\right | < \frac{1}{\lambda} $.
-
+Let $\Delta x$ be the sample spacing and N be the number of samples. Considering that our sampled DFT array has indices k=0,1,2.. where each is the the frequency index. In the FFT array, the sample spacing is $\Delta f=\frac{1}{N\Delta x}$.\\
+Since $f=k\Delta f$ with $\Delta f = \frac{1}{N\Delta x}$ the $\theta$ axis can be defined by $\theta = sin^{-1}(k\Delta f \lambda)$.
+Note however, this is only valid for $\left|f \lambda \right | < 1 $ or $\left |f\right | < \frac{1}{\lambda} $ with angular range $-\frac{\pi}{2}<\theta<\frac{\pi}{2}$ which results in a frequency range of $-\frac{1}{\lambda} < f < \frac{1}{\lambda}$ since the arcsine function outside these bounds will give an error.\\
 
 %f=k*df where k=0,1,2,..
 

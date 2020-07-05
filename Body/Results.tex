@@ -1,5 +1,5 @@
 \section{Results}
-To test the distortion and directionality of the directional speaker, recordings were made where a 2.5 kHz tone was generated, appropriately pre-processed using julia and produced into the testing environment by the ultrasonic directional speaker. The distortion was compared to a classical loudspeaker and the same ultrasonic directional speaker but without the pre-processing provided by the julia code. The directivity testing was achieved by sweeping the transducer array and classical loudspeaker across the microphone at a distance of 1.75m. The arc transitioned the speaker faces between -90$^\circ$ to +90$^\circ$ relative to the microphone. Following these tests, the recordings were imported into julia where they were processed with appropriate filtering and transformation to demonstrate the directionality and distortion of the ultrasonic directional speaker.
+To test the distortion and directionality of the directional speaker, recordings were made where a 2.5 kHz tone was generated, appropriately pre-processed using Julia and produced into the testing environment by the ultrasonic directional speaker. The distortion was compared to a classical loudspeaker and the same ultrasonic directional speaker but without the pre-processing provided by the Julia code. The directivity testing was achieved by sweeping the transducer array and classical loudspeaker across the microphone at a distance of 1.75m. The arc transitioned the speaker faces between -90$^\circ$ to +90$^\circ$ relative to the microphone. Following these tests, the recordings were imported into Julia where they were processed with appropriate filtering and transformation to demonstrate the directionality and distortion of the ultrasonic directional speaker.
 \subsection{Distortion testing}
 The distortion testing of the square root AM system is expected to produce a fundamental signal at 2.5kHz with decreasing magnitudes for 1st and 2nd harmonics at 5kHz and 7.5khz respectively. The same tests without the square root pre-processing applied should produce larger magnitude harmonics while the traditional loudspeaker should produce little to no harmonics.
 \subsubsection{Traditional loudspeaker distortion results}
@@ -101,7 +101,7 @@ The unfiltered recording of the loudspeaker beam sweep is analysed in figure \re
 \end{figure}
 
 \paragraph{Filtered 2.5 kHz beam sweep results}
-Figures \ref{fig:spkr_sweep25k_amp} and \ref{fig:spkr_sweep25k_spectro} show the time and frequency domain representations of the recorded beam sweep for a traditional loud speaker. Figure \ref{fig:spkr_sweep25k_amp} demonstrates a mostly consistent volume for the duration of the entire beam sweep, oscillating between approximately $\pm$0.04 V with the smallest troughs at around 7 and 19 seconds. The maximum peaks occur at approximately 9 and 22 seconds which are just after the aforementioned troughs. The results represent a signal without significant directionality as similar sound pressure levels and thus, recorded amplitudes are measured throughout the beam sweep. The spectrogram in figure \ref{fig:spkr_sweep25k_spectro} demonstrates what portion of the spectrum was used to create the time domain signal in figure \ref{fig:spkr_sweep25k_amp} but doesn't show significant variation in signal magnitude over the sweep.
+Figures \ref{fig:spkr_sweep25k_amp} and \ref{fig:spkr_sweep25k_spectro} show the time and frequency domain representations of the recorded beam sweep for a traditional loud speaker. Figure \ref{fig:spkr_sweep25k_amp} demonstrates a mostly consistent volume for the duration of the entire beam sweep, oscillating between approximately $\pm$0.04 V with the smallest troughs at around 7 and 19 seconds. The maximum peaks occur at approximately 9 and 22 seconds which are just after the aforementioned troughs. The results represent a signal without significant directionality as similar sound pressure levels and thus, recorded amplitudes are measured throughout the beam sweep. The spectrogram in figure \ref{fig:spkr_sweep25k_spectro} demonstrates what portion of the spectrum was used to create the time domain signal in figure \ref{fig:spkr_sweep25k_amp} but does not show significant variation in signal magnitude over the sweep.
 \begin{figure}[ht!]
     \centering
     \begin{minipage}{0.49\textwidth}
@@ -122,7 +122,7 @@ Figures \ref{fig:spkr_sweep25k_amp} and \ref{fig:spkr_sweep25k_spectro} show the
 
 \paragraph{5 kHz beam sweep results}
 
-Figures \ref{fig:spkr_sweep5k_amp} and \ref{fig:spkr_sweep5k_spectro} show the time and frequency domain representations of the recorded beam sweep for a traditional loud speaker band-pass filtered at 5kHz. Figure \ref{fig:spkr_sweep5k_amp} demonstrates a lot more peaks and troughs over the entire beam sweep, oscillating between approximately $\pm$0.0004 V with the smallest troughs at around 9 and 20 seconds. The maximum peaks occur at approximately 14 and 22 seconds. The results represents a signal without significant directionality as there isn't a significant peak near the middle of the data. The spectrogram in figure \ref{fig:spkr_sweep5k_spectro} demonstrates what portion of the spectrum was used to create the time domain signal in figure \ref{fig:spkr_sweep5k_amp} but doesn't show significant variation in signal magnitude over the sweep, much like the 2.5kHz filtered result.
+Figures \ref{fig:spkr_sweep5k_amp} and \ref{fig:spkr_sweep5k_spectro} show the time and frequency domain representations of the recorded beam sweep for a traditional loud speaker band-pass filtered at 5kHz. Figure \ref{fig:spkr_sweep5k_amp} demonstrates a lot more peaks and troughs over the entire beam sweep, oscillating between approximately $\pm$0.0004 V with the smallest troughs at around 9 and 20 seconds. The maximum peaks occur at approximately 14 and 22 seconds. The results represents a signal without significant directionality as there is not a significant peak near the middle of the data. The spectrogram in figure \ref{fig:spkr_sweep5k_spectro} demonstrates what portion of the spectrum was used to create the time domain signal in figure \ref{fig:spkr_sweep5k_amp} but does not show significant variation in signal magnitude over the sweep, much like the 2.5kHz filtered result.
 \begin{figure}[ht!]
     \centering
     \begin{minipage}{0.49\textwidth}
@@ -142,7 +142,7 @@ Figures \ref{fig:spkr_sweep5k_amp} and \ref{fig:spkr_sweep5k_spectro} show the t
 \newpage
 \paragraph{7.5 kHz beam sweep results}
 
-Figures \ref{fig:spkr_sweep75k_amp} and \ref{fig:spkr_sweep75k_spectro} show the time and frequency domain representations of the recorded beam sweep for a traditional loud speaker band-pass filtered at 7.5kHz. Figure \ref{fig:spkr_sweep75k_amp} demonstrates few peaks over the entire beam sweep at relatively low magnitudes. The maximum peak should occur between 10 to 15 seconds if this were a directional beam but they instead appear before and after this region. The spectrogram in figure \ref{fig:spkr_sweep75k_spectro} demonstrates what portion of the spectrum was used to create the time domain signal in figure \ref{fig:spkr_sweep75k_amp} but doesn't show significant variation in signal magnitude over the sweep, much like the 2.5kHz filtered result.
+Figures \ref{fig:spkr_sweep75k_amp} and \ref{fig:spkr_sweep75k_spectro} show the time and frequency domain representations of the recorded beam sweep for a traditional loud speaker band-pass filtered at 7.5kHz. Figure \ref{fig:spkr_sweep75k_amp} demonstrates few peaks over the entire beam sweep at relatively low magnitudes. The maximum peak should occur between 10 to 15 seconds if this were a directional beam but they instead appear before and after this region. The spectrogram in figure \ref{fig:spkr_sweep75k_spectro} demonstrates what portion of the spectrum was used to create the time domain signal in figure \ref{fig:spkr_sweep75k_amp} but does not show significant variation in signal magnitude over the sweep, much like the 2.5kHz filtered result.
 \begin{figure}[ht!]
     \centering
     \begin{minipage}{0.49\textwidth}
@@ -167,7 +167,7 @@ The unfiltered recording of the ultrasonic directional speaker beam sweep is ana
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.9\textwidth]{Figures/Testing/BeamSweep/Ultrasonic_sqr_am/original_sig_fft_amp.png}
-    \caption{Original beam sweep recording and FFT of all samples for ultrasonic directional speaker}
+    \caption{Original beam sweep recording and FFT of all samples for a ultrasonic directional speaker}
     \label{fig:unfiltered_usonic_beamsweep}
 \end{figure}
 
@@ -188,6 +188,7 @@ Figures \ref{fig:usonic_sweep25k_amp} and \ref{fig:usonic_sweep25k_spectro} show
         \label{fig:usonic_sweep25k_spectro}
     \end{minipage}
 \end{figure}
+\newpage
 Figure \ref{fig:usonic_sweep25k_amp} shows a large spike in signal amplitude as the beam crosses the microphone with tapered edges on either side of this spike. Some minor fluctuations in the 2.5kHz signal are present before and after this spike and are likely from reflections of the beam off surfaces in the room. Note that there are two similarly sized maximum spikes at the apex of the sweep which may be the result of the beam reflecting off the wall behind the microphone, then passing over the microphone (causing the dip) and then reflecting once more. The spectrogram in figure \ref{fig:usonic_sweep25k_spectro} demonstrates what portion of the spectrum was used to create the time domain signal in figure \ref{fig:usonic_sweep25k_amp} and shows some increase in intensity as the recording reaches the 11 second mark.
 
 
@@ -208,7 +209,7 @@ Figures \ref{fig:usonic_sweep5k_amp} and \ref{fig:usonic_sweep5k_spectro} show t
         \label{fig:usonic_sweep5k_spectro}
     \end{minipage}
 \end{figure}
-Figure \ref{fig:usonic_sweep5k_amp} shows a large spike in signal amplitude as the beam crosses the microphone with tapered edges on either side of this spike at 11 seconds. Before and after this main spike there exists some similarly shaped peaks in amplitude which could be the result of the side lobes of the beam as shown during the simulations in figure \ref{fig:sqr_elem_topBeam} and figure \ref{fig:sqr_elem_3Dbeam}. Alternatively it could be the result of reflections within the room causing pockets of constructive interference. Note however this is the first harmonic of the fundamental tone (2.5kHz) being produced which makes it somewhat undesirable as it isn't the original tone intended to be produced.
+Figure \ref{fig:usonic_sweep5k_amp} shows a large spike in signal amplitude as the beam crosses the microphone with tapered edges on either side of this spike at 11 seconds. Before and after this main spike there exists some similarly shaped peaks in amplitude which could be the result of the side lobes of the beam as shown during the simulations in figure \ref{fig:sqr_elem_topBeam} and figure \ref{fig:sqr_elem_3Dbeam}. Alternatively it could be the result of reflections within the room causing pockets of constructive interference. Note however this is the first harmonic of the fundamental tone (2.5kHz) being produced which makes it somewhat undesirable as it is not the original tone intended to be produced.
 The magnitude of the main lobe's spike reaches near 0.04 V peak to peak, which is larger than the fundamental in figure \ref{fig:usonic_sweep25k_amp}. The shape of the main lobe is a lot narrower for the 5kHz harmonic than the 2.5kHz tone indicating that the first harmonic is a more directional beam than the fundamental while having larger side lobes than the 2.5kHz fundamental tone.
 The spectrogram in figure \ref{fig:usonic_sweep5k_spectro} demonstrates what portion of the spectrum was used to create the time domain signal in figure \ref{fig:usonic_sweep5k_amp} and shows more intensity near the 11 second mark.
 

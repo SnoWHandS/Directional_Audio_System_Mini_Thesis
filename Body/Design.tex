@@ -8,16 +8,16 @@ The high level system design of the directional audio system is shown in figure 
     \caption{High level system design for the directional audio system}
     \label{fig:highleveldesign}
 \end{figure}
-The system begins by pre-processing audio using a specially developed julia program which applies the appropriate mathematical functions to a baseband audio clip and outputs the signal through the laptops audio jack.\\
+The system begins by pre-processing audio using a specially developed Julia program which applies the appropriate mathematical functions to a baseband audio clip and outputs the signal through the laptops audio jack.\\
 This pre-processed signal is then mixed with a 40 kHz sine wave created by a signal generator and passed into an amplifier. The amplifier increases the voltage swing of the mixed signal while having sufficient current to drive the ultrasonic transducers.\\
 The ultrasonic transducers are connected in parallel with each other and thus all receive the same signal from the power amplifier. The transducers are packed into a densely packed array to provide a more uniform transducer aperture which emits the input signal into the environment.
 %don't put a page break here, it ruins mixer spacing
 \subsection{Pre-processing subsystem design}
-The pre-processing occurs in the form of a julia program which applies the mathematical functions shown in figure \ref{fig:sigpreprocessflow}. The program takes in a sampled signal $x_{in}(t)$ which is then shifted to the centre crossing by subtraction of its average value. The function then undertakes a sample wise double integral and is then raised above the centre crossing so only positive values remain. The square root of the function is then taken and the signal is then output through the audio port of the laptop.
+The pre-processing occurs in the form of a Julia program which applies the mathematical functions shown in figure \ref{fig:sigpreprocessflow}. The program takes in a sampled signal $x_{in}(t)$ which is then shifted to the centre crossing by subtraction of its average value. The function then undertakes a sample wise double integral and is then raised above the centre crossing so only positive values remain. The square root of the function is then taken and the signal is then output through the audio port of the laptop.
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.7\textwidth]{Figures/Design/Preprocessing Design.png}
-    \caption{Signal Pre-processing flowchart}
+    \caption{Signal pre-processing flowchart}
     \label{fig:sigpreprocessflow}
 \end{figure}
 
@@ -28,7 +28,7 @@ The purpose of the mixer is to produce an amplitude modulated output of the carr
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.5\textwidth]{Figures/Design/Mixer/ad633Intr.png}
-    \caption{AD633 Functional diagram}
+    \caption{AD633 functional diagram}
     \label{fig:mixerfunc}
 \end{figure}
 
@@ -47,7 +47,7 @@ To verify the design works as intended with the systems input signals, a 40 kHz 
     W = \frac{(V_{in})(V_{carrier})}{10} + V_{carrier}
 \end{equation}
 
-Figure \ref{fig:mixervinvout} demonstrates the time domain expression for the output voltage across R1 as well as the input voltage $V_{in}$. The modulating amplitude is 1V and the carrier amplitude is 10V which are ten times the value presented to the internal multiplier as shown in figure \ref{fig:mixerfunc}. The simulation reveals that the output has a maximum amplitude of 2.9V and a minimum amplitude of 1.1V. This output doesn't produce an ideal modulation index of 100\% which would produce a stronger signal strength.
+Figure \ref{fig:mixervinvout} demonstrates the time domain expression for the output voltage across R1 as well as the input voltage $V_{in}$. The modulating amplitude is 1V and the carrier amplitude is 10V which are ten times the value presented to the internal multiplier as shown in figure \ref{fig:mixerfunc}. The simulation reveals that the output has a maximum amplitude of 2.9V and a minimum amplitude of 1.1V. This output does not produce an ideal modulation index of 100\% which would produce a stronger signal strength.
 
 \begin{figure}[ht!]
     \centering
@@ -302,12 +302,13 @@ The purpose of creating the ultrasonic array is to maximise the directivity of t
 The transducer patterns from figure \ref{fig:hex4.1} with hexagonal packing and figure \ref{fig:sqr4.5} with square packing were simulated and compared as their designs have symmetry which is required for a uniform beam pattern.\\
 
 These beam shape simulations were done by use of a two-dimensional Fourier Transform (2DFFT). The 2DFFT is performed over the parametric array aperture and forms an approximate radiated beam shape which can be used to determine how transducer placement effects the main and side lobe shapes. The beam shape simulations do not have real world axes dimensions as their intended purpose is purely for design investigation.
+A/Prof Wilkinson's antenna theory lecture notes \cite{wilkinson_2017} describe how a one dimensional FFT of a radiating aperture can be used to approximate the beam pattern of said aperture. The derivation is summarised in the following section.
 \paragraph{FFT Beam pattern derivation:}
 The beam pattern of a radiating aperture can be constructed by use of a two-dimensional FFT over the radiating aperture. This is done by modelling the radiating aperture as a grid of radiating point sources where the main lobe is developed from the constructive interference and side lobes created from destructive interference of these point sources, thus creating an interference pattern. This results in the waves adding in phase along the boresight axis due to constructive interference, while phase delays at some angle off boresight cause destructive interference, creating side lobes. This angle is represented by the beam width equation shown in equation \ref{eqn:boresightApndx} where D is the aperture diameter and $\lambda$ is the wavelength of the waves being propagated. Note, this equation is only for small angles.
 \begin{equation}\label{eqn:boresightApndx}
     \theta \approx \frac{\lambda}{D}
 \end{equation}
-Letting the signal received by the middle element be $\frac{Ae^{j\omega t}}{R}$ where R is the radial distance from the aperture and A is the field strength of the aperture and can be defined as $A(x)$ representing the field strength as a function of position away from the boresight axis. This results in the total signal received being delayed by the extra distance it must travel. This distance causes a delay defined by: $ \tau=\frac{xsin(\theta)}{c}$ derived from $\Delta = xsin(\theta)$ (since $v=\frac{\Delta x}{\Delta t}, \Delta t = \frac{\Delta x}{v}$).
+Letting the signal received by the middle element be $\frac{Ae^{j\omega t}}{R}$ where R is the radial distance from the aperture and $A$ is the field strength of the aperture. $A$ can be represeted as $A(x)$ which describes the field strength as a function of position away from the boresight axis. This function in the total signal received at a point being delayed by the extra distance it must travel from the transducer to the point in question. This forms a traingle with the boresight axis, $x$ axis and ray along which the signal must travel. This distance causes a delay defined by: $ \tau=\frac{xsin(\theta)}{c}$ derived from $\Delta = xsin(\theta)$ (since $v=\frac{\Delta x}{\Delta t}, \Delta t = \frac{\Delta x}{v}$).\\
 This results in the total signal received being described by equation \ref{eqn:recievedE}.
 \begin{equation}\label{eqn:recievedE}
     E \propto \frac{1}{R} \left( \sum_n A_n e^{-j\omega \tau_n} \right)e^{-j\omega t}
@@ -320,10 +321,10 @@ Since $\frac{\omega}{c} = \frac{2\pi f}{c} = \frac{2\pi}{\lambda}$ one can rewri
 \begin{equation}\label{eqn:recievedEintnew}
     E(\theta) = \frac{1}{R}  \int_{x=-\infty}^\infty A(x) e^{-j(\frac{2\pi sin(\theta)}{\lambda})x}e^{j\omega t}dx
 \end{equation}
-This angle dependant integral is in the form of a Fourier transform, thus can be computed with an FFT. Working in two dimensions allows a 3D beam pattern to be produced by taking the FFT in both dimensions.
-The FFT however, works with the $\omega$ axis which must be translated to an angular axis represented by $\theta$. This can be done by the relation $\omega = \frac{2\pi sin(\theta)}{\lambda}$, when rearranged to find $\theta$ produces $\theta = sin^{-1}(\frac{\omega \lambda}{2\pi})$. Substituting the frequency variable produces $\theta = sin^{-1(}f\lambda)$. Appendix C demonstrates how this axis change is possible for a future implementation of this code, but does not implement it.\\
+This angle dependant integral is in the form of a Fourier transform, thus can be computed with an FFT. Working in two dimensions allows a 3D beam pattern to be produced by performing the FFT along both dimensions.
+The FFT however, works with the $\omega$ axis which must be translated to an angular axis represented by $\theta$. This can be done by the relation $\omega = \frac{2\pi sin(\theta)}{\lambda}$, when rearranged to find $\theta$ produces $\theta = sin^{-1}(\frac{\omega \lambda}{2\pi})$. Substituting the frequency variable $f=\frac{\omega}{2\pi}$ produces $\theta = sin^{-1}(f\lambda)$. Appendix C demonstrates how this axis change is possible for a future implementation of this code, but does not implement it.\\
 
-
+\paragraph{Single element simulation:}
 To start, a single transducer is modelled and its approximate beam shape simulated to verify the functionality of the simulation output. The simulation output produces the expected beam pattern for a single uniform aperture in figures \ref{fig:single_elem_topBeam} and \ref{fig:single_elem_3Dbeam} and thus, is considered functional.
 
 \begin{figure}[h!]
@@ -351,7 +352,9 @@ When viewed in three-dimensions, a single element produces the beam shape shown 
     \label{fig:single_elem_3Dbeam}
 \end{figure}
 \newpage
-Extrapolating the single element into both the hexagonal and square packed designs was done by estimating the spacing between transducers in each design and placing the elements according to this spacing. The square pattern is shown below in figure \ref{fig:sqr_elem} along with its bore-sight beam shape in figure \ref{fig:sqr_elem_topBeam}.
+Extrapolating the single element into both the hexagonal and square packed designs was done by estimating the spacing between transducers according to a function that describes each designs layout and placing the transducer elements according to this spacing. 
+\paragraph{Square packed array simulation:}
+The square pattern is shown below in figure \ref{fig:sqr_elem} along with its bore-sight beam shape in figure \ref{fig:sqr_elem_topBeam}.
 \begin{figure}[h!]
 \centering
 
@@ -378,8 +381,9 @@ Extrapolating the single element into both the hexagonal and square packed desig
     \label{fig:sqr_elem_3Dbeam}
 \end{figure}
 
-The simulation shows that when many evenly spaced transducers are used, it produces a less smooth beam shape due to the discontinuities between elements. For the square packed circular array the beam shape appears to have a significant center lobe with moderately larger side lobes in comparison to the single element simulated in figure \ref{fig:single_elem_3Dbeam}. Since this design has 21 elements, it would produce a larger sound pressure level at its peak than a single element, this proportion should be taken into consideration when deciding on the design.\\
+The simulation shows that when many evenly spaced transducers are used, it produces a less smooth beam shape due to the discontinuities between elements. For the square packed circular array the beam shape appears to have a significant center lobe with moderately larger side lobes in comparison to the single element simulated in figure \ref{fig:single_elem_3Dbeam}. Since this design has 21 elements, it would produce a larger sound pressure level at its peak than arrays with fewer elements, this factor should be taken into consideration when deciding on the design.\\
 
+\paragraph{Hexagonally packed array simulation:}
 The next simulation aims to reduce the spacing between transducer elements by use of hexagonal packing as shown in figure \ref{fig:hex4.1}. This design has a filled fraction of 72.34\% which should yield a more uniform beam shape since the discontinuities between transducers have been reduced from the square packed design with a filled fraction of 66.37\% in figure \ref{fig:sqr4.5}. The magnitude of sound pressure energy in this design will be lower than the square design as it only has 19 elements instead of the 21 elements the square packed design contains.\\
 The beam shapes were simulated for the hexagonally packed design and are presented in figures \ref{fig:hex_elem} to \ref{fig:hex_elem_3Dbeam}.
 
@@ -412,17 +416,16 @@ The beam shapes were simulated for the hexagonally packed design and are present
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.8\textwidth]{Figures/arraySim/hex/beampat3d.png}
-    \caption{Approximate beam shape of hexagonally packed ultrasonic transducer array (3D shifted view)}
+    \caption{Approximate beam shape of hexagonally packed ultrasonic transducer array (3D shifted view to display sidelobes)}
     \label{fig:hex_elem_3Dbeam}
 \end{figure}
 
 \newpage
-It can be seen that more side lobes appear when using the hexagonal design, however it does better approximate a single transducer's beam shape with the relatively small lobes surrounding the large main lobe.
+It can be seen that six side lobes appear when using the hexagonal design. This increased count of side lobes over the four side lobes present in the square packed array is undesirable, however; it does better approximate a single transducer's beam shape with the relatively small lobes surrounding the large main lobe thus representing a more uniform beam shape.
 Both the square and hexagonal beam results indicate a similar peak relative magnitude of the main lobe of 4500, however; when analysing their bore-sight views the hexagonally packed array has six side lobes at approximate relative magnitude of 1000 while the square packed array has four side lobes with a relative magnitude of 1500. Neither result is fundamentally better than the other, but creating a beam with less side lobes would result in a more directive audio experience. Thus, since both results achieve a strong main lobe, the square packed solution is chosen going forward with the design as few side lobes is a more desirable trait for the directional audio system.
-\newpage
 
 \subsubsection{Array PCB design}
-Prior to the array design simulations done in the previous section, some alternative array designs are considered in the interest of creating a modular PCB design. The rationale behind taking a modular approach is to reduce the risk of failure due to faulty transducers. With a monolithic design, failure of a few transducers could risk damaging surrounding transducers while adding difficultly in troubleshooting where the failed components are. The transducers chosen for this design are the Kibitone 400ST ultrasonic transducers. A custom footprint for this transducer was created using the dimensions in its datasheet and used for the PCB design in KiCAD.
+Prior to the array design simulations done in the previous section, some alternative array designs were considered in the interest of creating a modular PCB design for better scalability. The rationale behind taking a modular approach is to reduce the risk of failure due to faulty transducers. With a monolithic design, failure of a few transducers could risk damaging surrounding transducers while adding difficultly in troubleshooting where the failed components are. The transducers chosen for this design are the Kibitone 400ST ultrasonic transducers. A custom footprint for this transducer was created using the dimensions in its datasheet and used for the PCB design in KiCAD.
 
 \begin{figure}[ht!]
     \centering
@@ -430,9 +433,9 @@ Prior to the array design simulations done in the previous section, some alterna
     \caption{Rev 1.0 illustrating a modular octagonal design}
     \label{fig:modHex1.0}
 \end{figure}
-
-Figure \ref{fig:modHex1.0} demonstrates the first attempt at making a modular transducer array element. The idea behind this being that many octogons/hexagons can stack closely together providing minimal gaps between each PCB module. Rev 1.0 was used to estimate how best to layout the transducer and in what shape. This resulted in a octagonal design which only allowed 2 PCBs to interconnect as additional pin headers would be needed for a third module to link with the other two.
-
+\newpage
+Figure \ref{fig:modHex1.0} demonstrates the first attempt at making a modular transducer array element. The idea behind this being that many octagons/hexagons can stack closely together providing minimal gaps between each PCB module. Rev 1.0 was used to estimate how best to layout the transducer and in what shape. This resulted in a octagonal design which only allowed 2 PCBs to interconnect as additional pin headers would be needed for a third module to link with the other two.
+Revision 1.1 is shown in figure \ref{fig:modHex1.1} where additional pin headers were added to allow up to three hexagonal PCB modules to connect to each other as demonstrated by figure \ref{fig:3modHex1.1}. Upon further development it was discovered that the male and female header pin placement was critical as exact alignment of them would be crucial for the modules to interconnect correctly with minimal gap. Adding to that, the centre of the array does not contain any transducers which would severely effect the uniformity of the beam. These factors drove the choice to redesign the array using a monolithic approach instead of modular and manage the risk faulty components create by additional component level testing during the implementation stage.
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.6\textwidth]{Figures/Design/PCB/closeups/hexrev1.1.png}
@@ -446,9 +449,6 @@ Figure \ref{fig:modHex1.0} demonstrates the first attempt at making a modular tr
     \caption{Three Rev 1.1 modular hexagonal PCBs interconnecting}
     \label{fig:3modHex1.1}
 \end{figure}
-
-\newpage
-Revision 1.1 is shown in figure \ref{fig:modHex1.1} where additional pin headers were added to allow up to three hexagonal PCB modules to connect to each other as demonstrated by figure \ref{fig:3modHex1.1}. Upon further development it was discovered that the male and female header pin placement was critical as exact alignment of them would be crucial for the modules to interconnect correctly with minimal gap. Adding to that, the centre of the array does not contain any transducers which would severely effect the uniformity of the beam. These factors drove the choice to redesign the array using a monolithic approach instead of modular and manage the risk faulty components create by additional component level testing during the implementation stage.
 
 
 \begin{figure}[ht!]
